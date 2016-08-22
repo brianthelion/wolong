@@ -3,3 +3,5 @@
 __author__ = 'Brian Rossa'
 __email__ = 'brian.rossa@gmail.com'
 __version__ = '0.0.1'
+
+#from . import plugins
