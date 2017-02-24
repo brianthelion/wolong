@@ -1,4 +1,4 @@
 pandas
 tables
 decorator
-plugnparse
+-e git+https://github.com/brianthelion/plugnparse.git#egg=plugnparse
