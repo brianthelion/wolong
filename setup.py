@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -9,16 +9,14 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    'pandas',
-    'tables',
-    'decorator',
-    'plugnparse'
-]
+with open('requirements.txt') as requirements_file:
+    requirements = requirements_file.readlines()
 
 test_requirements = [
     'tox'
 ]
+
+packages = find_packages(exclude=["tests"])
 
 setup(
     name='wolong',
@@ -28,11 +26,7 @@ setup(
     author="Brian Rossa",
     author_email='brian.rossa@gmail.com',
     url='https://github.com/brianthelion/wolong',
-    packages=[
-        'wolong',
-    ],
-    package_dir={'wolong':
-                 'wolong'},
+    packages=packages,
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
