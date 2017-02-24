@@ -3,6 +3,20 @@
 
 from setuptools import setup, find_packages
 
+USE_GIT_FLAG = "-e "
+EGG_NAME_REGEX = "#egg="
+
+def parse_requirements_line(req_str):
+    package_name = None
+    url = None
+    if req_str.startswith(USE_GIT_FLAG):
+        name_start = req_str.find(EGG_NAME_REGEX)+len(EGG_NAME_REGEX)
+        package_name = req_str[name_start:]
+        url = req_str[len(USE_GIT_FLAG):]
+    else:
+        package_name = req_str
+    return package_name, url
+
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
@@ -10,7 +24,12 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 with open('requirements.txt') as requirements_file:
-    requirements = requirements_file.readlines()
+    lines = (line.strip() for line in requirements_file.readlines())
+    names_to_urls = dict(parse_requirements_line(line) for line in lines)
+    requirements = names_to_urls.keys()
+    dependency_links = [v for v in names_to_urls.values() if v is not None]
+    print(requirements)
+    print(dependency_links)
 
 test_requirements = [
     'tox'
@@ -47,7 +66,5 @@ setup(
     ],
     test_suite='tests',
     tests_require=test_requirements,
-    dependency_links=[
-        'https://github.com/brianthelion/plugnparse/tarball/master#egg=plugnparse'
-    ]
+    dependency_links=dependency_links
 )
