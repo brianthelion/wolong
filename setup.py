@@ -14,7 +14,7 @@ def parse_requirements_line(req_str):
     if req_str.startswith(USE_GIT_FLAG):
         result = re.search(EGG_NAME_REGEX, req_str)
         package_name = result.group(PACKAGE_NAME_GROUP_REF)
-        url = req_str[len(USE_GIT_FLAG):]
+        url = req_str
     else:
         package_name = req_str
     return package_name, url
