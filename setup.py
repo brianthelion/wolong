@@ -5,14 +5,15 @@ from setuptools import setup, find_packages
 import re
 
 USE_GIT_FLAG = "git+"
-EGG_NAME_REGEX = re.compile("\#egg\=(.*)\-.*$")
+EGG_NAME_REGEX = re.compile("\#egg\=(?P<pkg>.*)\-.*$")
+PACKAGE_NAME_GROUP_REF = 'pkg'
 
 def parse_requirements_line(req_str):
     package_name = None
     url = None
     if req_str.startswith(USE_GIT_FLAG):
         result = re.search(EGG_NAME_REGEX, req_str)
-        package_name = result.group(0)
+        package_name = result.group(PACKAGE_NAME_GROUP_REF)
         url = req_str[len(USE_GIT_FLAG):]
     else:
         package_name = req_str
