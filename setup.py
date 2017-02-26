@@ -31,9 +31,6 @@ with open('requirements.txt') as requirements_file:
     requirements = names_to_urls.keys()
     dependency_links = [v for v in names_to_urls.values() if v is not None]
 
-print(requirements)
-print(dependency_links)
-
 test_requirements = [
     'tox'
 ]
